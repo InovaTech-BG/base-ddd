@@ -1,17 +1,51 @@
 {
-  "name": "@inovatechbg/base-ddd",
-  "version": "1.0.0",
-  "description": "A base structure for a ddd project",
-  "main": "./dist/index.js",
-  "scripts": {
-    "test": "test"
-  },
-  "keywords": [
-    "ddd"
-  ],
-  "author": "InovaTech BG",
-  "license": "MIT",
-  "devDependencies": {
-    "vitest": "^2.1.8"
-  }
+	"name": "@inovatechbg/base-ddd",
+	"version": "1.0.0",
+	"description": "A base structure for a ddd project",
+	"files": ["dist"],
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"require": "./dist/index.js"
+		},
+		"./event": {
+			"import": "./dist/event/index.js",
+			"require": "./dist/event/index.js"
+		},
+		"./entities": {
+			"import": "./dist/entities/index.js",
+			"require": "./dist/entities/index.js"
+		},
+		"./value-objects": {
+			"import": "./dist/entities/value-objects/index.js",
+			"require": "./dist/entities/value-objects/index.js"
+		},
+		"./utils": {
+			"import": "./dist/utils/index.js",
+			"require": "./dist/utils/index.js"
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"event": ["dist/event/index.d.ts"],
+			"entities": ["dist/entities/index.d.ts"],
+			"utils": ["dist/utils/index.d.ts"],
+			"value-objects": ["dist/entities/value-objects/index.d.ts"]
+		}
+	},
+	"scripts": {
+		"build": "tsup",
+		"test": "vitest"
+	},
+	"keywords": ["ddd"],
+	"author": "InovaTech BG",
+	"license": "MIT",
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"tsup": "^8.3.5",
+		"vitest": "^2.1.8"
+	}
 }
