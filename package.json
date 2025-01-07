@@ -38,7 +38,8 @@
 	},
 	"scripts": {
 		"build": "tsup",
-		"test": "vitest"
+		"test:watch": "vitest",
+		"test": "vitest run"
 	},
 	"keywords": ["ddd"],
 	"author": "InovaTech BG",
