@@ -39,14 +39,22 @@
 	"scripts": {
 		"build": "tsup",
 		"test:watch": "vitest",
-		"test": "vitest run"
+		"test": "vitest run",
+		"local-release": "changeset version && changeset publish"
+	},
+	"repository": {
+		"url": "https://github.com/InovaTech-BG/base-ddd"
 	},
 	"keywords": ["ddd"],
-	"author": "InovaTech BG",
+	"author": "Brennon Gabriel de Oliveira",
 	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
 		"tsup": "^8.3.5",
 		"vitest": "^2.1.8"
-	}
+	},
+	"publisher": "InovaTech BG"
 }
