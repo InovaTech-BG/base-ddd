@@ -1,0 +1,17 @@
+{
+  "name": "@inovatechbg/base-ddd",
+  "version": "1.0.0",
+  "description": "A base structure for a ddd project",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "ddd"
+  ],
+  "author": "InovaTech BG",
+  "license": "MIT",
+  "devDependencies": {
+    "vitest": "^2.1.8"
+  }
+}
