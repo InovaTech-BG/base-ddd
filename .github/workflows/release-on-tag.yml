@@ -17,16 +17,21 @@ jobs:
       - name: Verificar se o commit está na branch main
         id: check_main
         run: |
-          git fetch origin main
+            echo "GITHUB_REF: $GITHUB_REF"
+            echo "GITHUB_SHA: $GITHUB_SHA"
+            git show-ref | grep "$(echo $GITHUB_SHA | cut -c1-7)"
+            git log --oneline -5
 
-          git checkout -b main origin/main
+            git fetch origin main
 
-          if git branch --contains "$GITHUB_SHA" | grep -w "main"; then
-            echo "Commit está em main!"
-          else
-            echo "A tag não aponta para um commit em main."
-            exit 1
-          fi
+            git checkout -b main origin/main
+
+            if git branch --contains "$GITHUB_SHA" | grep -w "main"; then
+              echo "Commit está em main!"
+            else
+              echo "A tag não aponta para um commit em main."
+              exit 1
+            fi
 
       - name: Criar Release
         id: create_release
