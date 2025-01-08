@@ -1,4 +1,4 @@
-import { Aggregate } from "../entities/aggregate";
+import { AggregateRoot } from "../entities/aggregate";
 import { Id } from "../entities/value-objects/id";
 import { UniqueEntityId } from "../entities/value-objects/unique-entity-id";
 import { DomainEvent } from "./domain-event";
@@ -9,10 +9,10 @@ export class DomainEvents {
 		string,
 		EventHandler<DomainEvent<Id<unknown>>, Id<unknown>>[]
 	> = {};
-	private static markedAggregates: Aggregate<unknown, Id<unknown>>[] = [];
+	private static markedAggregates: AggregateRoot<unknown, Id<unknown>>[] = [];
 
 	public static markedAggregateForDispatch(
-		aggregate: Aggregate<unknown, Id<unknown>>,
+		aggregate: AggregateRoot<unknown, Id<unknown>>,
 	) {
 		const aggregateFound = !!DomainEvents.findMarkedAggregateByID(aggregate.id);
 
@@ -22,7 +22,7 @@ export class DomainEvents {
 	}
 
 	private static dispatchAggregateEvents<T>(
-		aggregate: Aggregate<T, Id<unknown>>,
+		aggregate: AggregateRoot<T, Id<unknown>>,
 	) {
 		for (const event of aggregate.domainEvents) {
 			DomainEvents.dispatch(event);
@@ -30,7 +30,7 @@ export class DomainEvents {
 	}
 
 	private static removeAggregateFromMarkedDispatchList(
-		aggregate: Aggregate<unknown, Id<unknown>>,
+		aggregate: AggregateRoot<unknown, Id<unknown>>,
 	) {
 		const index = DomainEvents.markedAggregates.findIndex((a) =>
 			a.equals(aggregate),

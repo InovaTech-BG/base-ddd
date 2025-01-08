@@ -1,5 +1,5 @@
 import { Mock } from "vitest";
-import { Aggregate } from "../entities/aggregate";
+import { AggregateRoot } from "../entities/aggregate";
 import {
 	UniqueEntityId,
 	UniqueEntityIdConstructor,
@@ -22,7 +22,7 @@ class CustomAggregateCreated implements DomainEvent {
 	}
 }
 
-class CustomAggregate extends Aggregate<null, UniqueEntityId> {
+class CustomAggregate extends AggregateRoot<null, UniqueEntityId> {
 	static create() {
 		const customAggregate = new CustomAggregate(
 			null,

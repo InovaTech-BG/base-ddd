@@ -1,7 +1,7 @@
 export abstract class ValueObject<T> {
 	protected readonly _value: T;
 
-	constructor(value: T) {
+	protected constructor(value: T) {
 		this._value = value;
 	}
 
@@ -27,7 +27,6 @@ export abstract class ValueObject<T> {
 		}
 		if (Array.isArray(this.value)) {
 			return (this._value as Array<unknown>).map((value: unknown) => {
-				console.log(value);
 				if (value instanceof Object) {
 					return this._cleanValue(value);
 				}
