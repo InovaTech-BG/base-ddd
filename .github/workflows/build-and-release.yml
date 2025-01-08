@@ -1,4 +1,4 @@
-name: Release on Tag (vMajor.Minor.Patch)
+name: Build and Release
 
 on:
   push:
@@ -55,4 +55,28 @@ jobs:
           body: "Release gerada a partir do push de tag na branch main."
           draft: false
           prerelease: false
+  build:
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
   
