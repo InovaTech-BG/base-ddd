@@ -26,12 +26,19 @@ jobs:
 
             git checkout -b main origin/main
 
-            if git branch --contains "$GITHUB_SHA" | grep -w "main"; then
+            cat << 'EOF' > check_commit_in_main.sh
+            #!/usr/bin/env bash
+            if git rev-list main | grep "$GITHUB_SHA"; then
               echo "Commit está em main!"
             else
               echo "A tag não aponta para um commit em main."
               exit 1
             fi
+            EOF
+
+            chmod +x check_commit_in_main.sh
+            ./check_commit_in_main.sh
+            rm ./check_commit_in_main.sh
 
       - name: Criar Release
         id: create_release
