@@ -2,7 +2,7 @@
 	"name": "@inovatechbg/base-ddd",
 	"version": "1.0.0",
 	"description": "A base structure for a ddd project",
-	"files": ["dist"],
+	"files": ["dist", "./README.md"],
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
