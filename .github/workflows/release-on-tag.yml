@@ -43,9 +43,12 @@ jobs:
       - name: Criar Release
         id: create_release
         uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name }}       # O nome da tag do push, ex: "v1.2.3"
+          tag_name: ${{ github.ref_name }}
           release_name: "Release ${{ github.ref_name }}"
           body: "Release gerada a partir do push de tag na branch main."
           draft: false
           prerelease: false
+  
