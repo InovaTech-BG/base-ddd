@@ -1,6 +1,6 @@
 {
 	"name": "@inovatechbg/base-ddd",
-	"version": "v2.0.13",
+	"version": "v2.0.14",
 	"description": "A base structure for a ddd project",
 	"files": ["dist", "./README.md"],
 	"main": "./dist/index.js",
@@ -47,6 +47,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.9.4",
+		"@types/node": "^22.10.5",
 		"tsup": "^8.3.5",
 		"typescript": "^5.7.2",
 		"vitest": "^2.1.8"
