@@ -1,6 +1,6 @@
 {
 	"name": "@inovatechbg/base-ddd",
-	"version": "v2.0.11",
+	"version": "v2.0.12",
 	"description": "A base structure for a ddd project",
 	"files": ["dist", "./README.md"],
 	"main": "./dist/index.js",

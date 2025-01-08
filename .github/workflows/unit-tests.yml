@@ -1,12 +1,11 @@
 name: Unit Tests
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
+  workflow_call:
+    inputs:
+      workflow_id:
+        required: true
+        type: boolean
+        
 jobs:
   build:
     runs-on: ubuntu-22.04
