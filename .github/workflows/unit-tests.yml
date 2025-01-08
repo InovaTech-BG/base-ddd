@@ -4,10 +4,10 @@ on:
     inputs:
       workflow_id:
         required: true
-        type: boolean
-        
+        type: string
+
 jobs:
-  build:
+  run_unit_tests:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
