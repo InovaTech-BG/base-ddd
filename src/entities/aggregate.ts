@@ -1,10 +1,10 @@
-import { DomainEvent } from "../event/domain-event";
-import { DomainEvents } from "../event/domain-events";
+import { DomainEvent } from "../events/domain-event";
+import { DomainEvents } from "../events/domain-events";
 import { Entity } from "./entity";
 import { Id } from "./value-objects/id";
 import { UniqueEntityId } from "./value-objects/unique-entity-id";
 
-export class Aggregate<
+export class AggregateRoot<
 	Props,
 	IdType extends Id<unknown> = UniqueEntityId,
 > extends Entity<Props, IdType> {
