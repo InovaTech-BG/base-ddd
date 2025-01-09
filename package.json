@@ -1,11 +1,8 @@
 {
 	"name": "@inovatechbg/base-ddd",
-	"version": "v2.0.18",
+	"version": "v3.0.0",
 	"description": "A base structure for a ddd project",
-	"files": [
-		"dist",
-		"./README.md"
-	],
+	"files": ["dist", "./README.md"],
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -25,19 +22,33 @@
 		"./value-objects": {
 			"import": "./dist/entities/value-objects/index.js",
 			"require": "./dist/entities/value-objects/index.js"
+		},
+		"./repositories": {
+			"import": "./dist/repositories/index.js",
+			"require": "./dist/repositories/index.js"
+		},
+		"./services": {
+			"import": "./dist/services/index.js",
+			"require": "./dist/services/index.js"
+		},
+		"./use-cases": {
+			"import": "./dist/use-cases/index.js",
+			"require": "./dist/use-cases/index.js"
+		},
+		"./dependecies": {
+			"import": "./dist/dependecies/index.js",
+			"require": "./dist/dependecies/index.js"
 		}
 	},
 	"typesVersions": {
 		"*": {
-			"events": [
-				"dist/events/index.d.ts"
-			],
-			"entities": [
-				"dist/entities/index.d.ts"
-			],
-			"value-objects": [
-				"dist/entities/value-objects/index.d.ts"
-			]
+			"events": ["dist/events/index.d.ts"],
+			"entities": ["dist/entities/index.d.ts"],
+			"value-objects": ["dist/entities/value-objects/index.d.ts"],
+			"repositories": ["dist/repositories/index.d.ts"],
+			"services": ["dist/services/index.d.ts"],
+			"use-cases": ["dist/use-cases/index.d.ts"],
+			"dependecies": ["dist/dependecies/index.d.ts"]
 		}
 	},
 	"scripts": {
@@ -48,9 +59,7 @@
 	"repository": {
 		"url": "https://github.com/InovaTech-BG/base-ddd"
 	},
-	"keywords": [
-		"ddd"
-	],
+	"keywords": ["ddd"],
 	"author": "Brennon Gabriel de Oliveira",
 	"license": "MIT",
 	"publishConfig": {

@@ -1,5 +1,5 @@
 import { Either } from "@inovatechbg/either";
-import { Dependency } from "../dependency/dependecy";
+import { Dependency } from "../dependecies/dependency";
 
 // biome-ignore lint:
 type AllowedDependency = Dependency;
