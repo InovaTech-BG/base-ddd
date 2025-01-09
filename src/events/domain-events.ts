@@ -1,3 +1,4 @@
+import { EntityProps } from "../entities";
 import { AggregateRoot } from "../entities/aggregate";
 import { Id } from "../entities/value-objects/id";
 import { UniqueEntityId } from "../entities/value-objects/unique-entity-id";
@@ -9,10 +10,11 @@ export class DomainEvents {
 		string,
 		EventHandler<DomainEvent<Id<unknown>>, Id<unknown>>[]
 	> = {};
-	private static markedAggregates: AggregateRoot<unknown, Id<unknown>>[] = [];
+	// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+	private static markedAggregates: AggregateRoot<any, Id<unknown>>[] = [];
 
 	public static markedAggregateForDispatch(
-		aggregate: AggregateRoot<unknown, Id<unknown>>,
+		aggregate: AggregateRoot<any, Id<unknown>>,
 	) {
 		const aggregateFound = !!DomainEvents.findMarkedAggregateByID(aggregate.id);
 
@@ -21,7 +23,7 @@ export class DomainEvents {
 		}
 	}
 
-	private static dispatchAggregateEvents<T>(
+	private static dispatchAggregateEvents<T extends EntityProps>(
 		aggregate: AggregateRoot<T, Id<unknown>>,
 	) {
 		for (const event of aggregate.domainEvents) {
@@ -30,7 +32,7 @@ export class DomainEvents {
 	}
 
 	private static removeAggregateFromMarkedDispatchList(
-		aggregate: AggregateRoot<unknown, Id<unknown>>,
+		aggregate: AggregateRoot<any, Id<unknown>>,
 	) {
 		const index = DomainEvents.markedAggregates.findIndex((a) =>
 			a.equals(aggregate),

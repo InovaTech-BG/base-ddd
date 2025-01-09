@@ -21,6 +21,9 @@
 					"level": "error",
 					"fix": "safe"
 				}
+			},
+			"suspicious": {
+				"noExplicitAny": "off"
 			}
 		}
 	},

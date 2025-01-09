@@ -1,11 +1,11 @@
 import { DomainEvent } from "../events/domain-event";
 import { DomainEvents } from "../events/domain-events";
-import { Entity } from "./entity";
+import { Entity, EntityProps } from "./entity";
 import { Id } from "./value-objects/id";
 import { UniqueEntityId } from "./value-objects/unique-entity-id";
 
 export class AggregateRoot<
-	Props,
+	Props extends EntityProps,
 	IdType extends Id<unknown> = UniqueEntityId,
 > extends Entity<Props, IdType> {
 	protected currentUserUsingId?: IdType;
