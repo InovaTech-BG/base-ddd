@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@inovatechbg/either':
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -366,6 +370,9 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@inovatechbg/either@1.0.1':
+    resolution: {integrity: sha512-UYT5OoPFSfqnJwrpmgvo9GR3JMWgGGPhntSqXiCt4HzICm0WDvoqdCKp8MfgIskoj5m7jDlcS4SaHIrqu1w05Q==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -1165,6 +1172,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.24.2':
     optional: true
+
+  '@inovatechbg/either@1.0.1': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

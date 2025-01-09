@@ -2,7 +2,10 @@
 	"name": "@inovatechbg/base-ddd",
 	"version": "v2.0.18",
 	"description": "A base structure for a ddd project",
-	"files": ["dist", "./README.md"],
+	"files": [
+		"dist",
+		"./README.md"
+	],
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -26,9 +29,15 @@
 	},
 	"typesVersions": {
 		"*": {
-			"events": ["dist/events/index.d.ts"],
-			"entities": ["dist/entities/index.d.ts"],
-			"value-objects": ["dist/entities/value-objects/index.d.ts"]
+			"events": [
+				"dist/events/index.d.ts"
+			],
+			"entities": [
+				"dist/entities/index.d.ts"
+			],
+			"value-objects": [
+				"dist/entities/value-objects/index.d.ts"
+			]
 		}
 	},
 	"scripts": {
@@ -39,7 +48,9 @@
 	"repository": {
 		"url": "https://github.com/InovaTech-BG/base-ddd"
 	},
-	"keywords": ["ddd"],
+	"keywords": [
+		"ddd"
+	],
 	"author": "Brennon Gabriel de Oliveira",
 	"license": "MIT",
 	"publishConfig": {
@@ -52,5 +63,8 @@
 		"typescript": "^5.7.2",
 		"vitest": "^2.1.8"
 	},
-	"publisher": "InovaTech BG"
+	"publisher": "InovaTech BG",
+	"dependencies": {
+		"@inovatechbg/either": "^1.0.1"
+	}
 }

@@ -13,7 +13,7 @@ This project implements ddd concepts like:
 * Aggregates
 * Value Objects
 * Domain Events
-* Domain Services (Coming soon)
+* Services (Coming soon)
 * Repositories (Coming soon)
 * Use Cases (Coming soon)
 
