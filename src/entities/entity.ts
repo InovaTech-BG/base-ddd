@@ -1,7 +1,14 @@
 import { Id, IdConstructor } from "./value-objects/id";
 import { UniqueEntityId } from "./value-objects/unique-entity-id";
 
-export class Entity<Props, IdType extends Id<unknown> = UniqueEntityId> {
+export type ExtractProps<E> = E extends Entity<infer Props> ? Props : never;
+
+export type EntityProps = {};
+
+export class Entity<
+	Props extends EntityProps,
+	IdType extends Id<unknown> = UniqueEntityId,
+> {
 	protected _id: IdType;
 	protected props: Props;
 
