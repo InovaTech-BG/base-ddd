@@ -1,45 +1,35 @@
 import { Either, EitherAsync } from "@inovatechbg/either";
 import z, { ZodError } from "zod";
+import { ExtractDeps } from "../dependecies";
 import { Entity } from "../entities";
 import { Id } from "../entities/value-objects";
 import { Repository } from "../repositories";
 import { Service } from "../services/service";
 
-type AllowedDependency = Repository<Entity<any, Id<unknown>>> | Service;
-type Dependencies<T extends Record<string, AllowedDependency>> = {
-	[K in keyof T]: T[K];
-};
-export type UseCaseDependencies = Dependencies<
-	Record<string, AllowedDependency>
->;
+type AllowedDependency = Repository<Entity<any, Id<unknown>>> | Service<any>;
 
-type eitherMethod = (
-	...args: any[]
-) => Either<any, any> | Promise<Either<any, any>> | Promise<void>;
-
-type dependency = AllowedDependency;
-
-export abstract class UseCase<Params, Failure, Success> extends EitherAsync<
+export abstract class UseCase<
 	Params,
-	Failure | ZodError<any>,
-	Success
-> {
+	Failure,
+	Success,
+	Deps extends ExtractDeps<Deps, AllowedDependency>,
+> extends EitherAsync<Params, Failure | ZodError<any>, Success> {
 	protected readonly schema: z.ZodType<any, any, any>;
 
-	[methodName: string]: eitherMethod | dependency | z.ZodType<any, any, any>;
+	protected readonly deps: Deps = {} as Deps;
 
 	constructor({
 		schema,
 		dependencies,
 	}: {
 		schema: z.ZodType<any, any, any>;
-		dependencies: UseCaseDependencies;
+		dependencies: Deps;
 	}) {
 		super();
 
 		this.schema = schema;
 
-		Object.assign(this, dependencies);
+		Object.assign(this.deps, dependencies);
 	}
 
 	public async execute(params: Params) {

@@ -1,6 +1,7 @@
 import { Either, right } from "@inovatechbg/either";
 import { Mock } from "vitest";
 import z from "zod";
+import { Dependency } from "../dependecies";
 import { Entity, EntityProps } from "../entities";
 import {
 	UniqueEntityId,
@@ -8,7 +9,7 @@ import {
 } from "../entities/value-objects";
 import { InMemoryRepository, Repository } from "../repositories";
 import { Service } from "../services/service";
-import { UseCase, UseCaseDependencies } from "./use-case";
+import { UseCase } from "./use-case";
 
 interface CustomEntityProps extends EntityProps {
 	name: string;
@@ -52,10 +53,11 @@ class CustomInMemoryRepository
 	}
 }
 
-class SpyDependency {
+class SpyDependency extends Dependency<{}> {
 	spy: Mock<Procedure>;
 
 	constructor(mock: Mock<Procedure>) {
+		super({ dependencies: {} });
 		this.spy = mock;
 	}
 
@@ -65,15 +67,22 @@ class SpyDependency {
 	}
 }
 
-class CustomService extends Service {
-	private spyDependency!: SpyDependency;
+interface CustomServiceDependencies {
+	spyDependency: SpyDependency;
+}
 
-	doSomething(): Either<Error, string> {
-		return right("Something");
+class CustomService extends Service<CustomServiceDependencies> {
+	private get spyDependency() {
+		return this.deps.spyDependency;
 	}
 
-	teste() {
-		return "";
+	constructor(dependencies: CustomServiceDependencies) {
+		super({ dependencies });
+	}
+
+	doSomething(): Either<Error, string> {
+		this.spyDependency.do();
+		return right("Something");
 	}
 }
 
@@ -87,16 +96,19 @@ const createCustomUseCaseSchema = z.object({
 	age: z.coerce.number(),
 });
 
-interface CreateUserDependencies extends UseCaseDependencies {
+interface CreateUserDependencies {
 	customRepository: CustomRepository;
 }
 
 class CreateCustomUseCase extends UseCase<
 	CreateCustomUseCaseProps,
 	Error,
-	CustomEntity
+	CustomEntity,
+	CreateUserDependencies
 > {
-	private customRepository!: CustomRepository;
+	private get customRepository() {
+		return this.deps.customRepository;
+	}
 
 	constructor(dependencies: CreateUserDependencies) {
 		super({
@@ -124,6 +136,17 @@ class CreateCustomUseCase extends UseCase<
 
 describe("CreateCustomUseCase", () => {
 	it("should 1 + 1 equals 2", () => {
-		expect(1 + 1).toBe(2);
+		const customRepository = new CustomInMemoryRepository();
+		const spy = vi.fn();
+		const spyDependency = new SpyDependency(spy);
+		const customService = new CustomService({ spyDependency });
+		const dependencies = {
+			customRepository,
+			customService,
+		};
+
+		const createCustomUseCase = new CreateCustomUseCase(dependencies);
+
+		createCustomUseCase.execute({ name: "John", age: 20 });
 	});
 });

@@ -1,30 +1,13 @@
-import { Either } from "@inovatechbg/either";
-import { Dependency } from "../dependecies/dependency";
+import { ExtractDeps } from "../dependecies/dependency";
 
-type AllowedDependency = Dependency;
-type Dependencies<T extends Record<string, AllowedDependency>> = {
-	[K in keyof T]: T[K];
-};
-export type ServiceDependencies = Dependencies<
-	Record<string, AllowedDependency>
->;
-
-type eitherMethod = (
-	...args: any[]
-) => Either<any, any> | Promise<Either<any, any>>;
-
-type dependency = AllowedDependency;
-
-export class Service {
-	[methodName: string]: eitherMethod | dependency;
+export class Service<Deps extends ExtractDeps<Deps> = never> {
+	protected readonly deps: Deps = {} as Deps;
 
 	constructor({
 		dependencies,
 	}: {
-		dependencies: ServiceDependencies;
+		dependencies: Deps;
 	}) {
-		for (const key of Object.keys(dependencies)) {
-			this[key] = dependencies[key];
-		}
+		Object.assign(this.deps, dependencies);
 	}
 }
