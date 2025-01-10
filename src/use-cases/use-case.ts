@@ -28,23 +28,18 @@ export abstract class UseCase<Params, Failure, Success> extends EitherAsync<
 
 	[methodName: string]: eitherMethod | dependency | z.ZodType<any, any, any>;
 
-	constructor(
-		{
-			schema,
-			dependencies,
-		}: {
-			schema: z.ZodType<any, any, any>;
-			dependencies: UseCaseDependencies;
-		},
-		self: UseCase<Params, Failure, Success>,
-	) {
+	constructor({
+		schema,
+		dependencies,
+	}: {
+		schema: z.ZodType<any, any, any>;
+		dependencies: UseCaseDependencies;
+	}) {
 		super();
 
 		this.schema = schema;
 
-		for (const key of Object.keys(dependencies)) {
-			self[key] = dependencies[key];
-		}
+		Object.assign(this, dependencies);
 	}
 
 	public async execute(params: Params) {
