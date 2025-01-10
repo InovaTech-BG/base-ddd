@@ -15,7 +15,6 @@ interface CustomEntityProps extends EntityProps {
 	age: number;
 }
 
-// biome-ignore lint:
 type Procedure = (...args: any[]) => any;
 
 class CustomEntity extends Entity<CustomEntityProps> {

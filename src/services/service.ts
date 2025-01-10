@@ -1,7 +1,6 @@
 import { Either } from "@inovatechbg/either";
 import { Dependency } from "../dependecies/dependency";
 
-// biome-ignore lint:
 type AllowedDependency = Dependency;
 type Dependencies<T extends Record<string, AllowedDependency>> = {
 	[K in keyof T]: T[K];
@@ -11,9 +10,7 @@ export type ServiceDependencies = Dependencies<
 >;
 
 type eitherMethod = (
-	// biome-ignore lint:
 	...args: any[]
-	// biome-ignore lint:
 ) => Either<any, any> | Promise<Either<any, any>>;
 
 type dependency = AllowedDependency;

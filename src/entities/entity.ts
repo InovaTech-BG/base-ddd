@@ -7,7 +7,6 @@ export type InferedEntity<E> = E extends Entity<infer Props, infer IdType>
 	? Entity<Props, IdType>
 	: never;
 
-// biome-ignore lint:
 export type ExtractId<E> = E extends Entity<any, infer IdType> ? IdType : never;
 
 export type EntityProps = {};

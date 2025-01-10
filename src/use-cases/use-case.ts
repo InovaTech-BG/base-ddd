@@ -1,11 +1,11 @@
 import { Either, EitherAsync } from "@inovatechbg/either";
 import z, { ZodError } from "zod";
 import { Entity } from "../entities";
+import { Id } from "../entities/value-objects";
 import { Repository } from "../repositories";
 import { Service } from "../services/service";
 
-// biome-ignore lint:
-type AllowedDependency = Repository<Entity<any>> | Service;
+type AllowedDependency = Repository<Entity<any, Id<unknown>>> | Service;
 type Dependencies<T extends Record<string, AllowedDependency>> = {
 	[K in keyof T]: T[K];
 };
@@ -14,30 +14,24 @@ export type UseCaseDependencies = Dependencies<
 >;
 
 type eitherMethod = (
-	// biome-ignore lint:
 	...args: any[]
-	// biome-ignore lint:
 ) => Either<any, any> | Promise<Either<any, any>> | Promise<void>;
 
 type dependency = AllowedDependency;
 
-export abstract class UseCase<
+export abstract class UseCase<Params, Failure, Success> extends EitherAsync<
 	Params,
-	Failure,
-	Success,
-	// biome-ignore lint:
-> extends EitherAsync<Params, Failure | ZodError<any>, Success> {
-	// biome-ignore lint:
+	Failure | ZodError<any>,
+	Success
+> {
 	protected readonly schema: z.ZodType<any, any, any>;
 
-	// biome-ignore lint:
 	[methodName: string]: eitherMethod | dependency | z.ZodType<any, any, any>;
 
 	constructor({
 		schema,
 		dependencies,
 	}: {
-		// biome-ignore lint:
 		schema: z.ZodType<any, any, any>;
 		dependencies: UseCaseDependencies;
 	}) {
@@ -87,7 +81,6 @@ export abstract class UseCase<
 
 	protected async handleFailure(
 		_params: Params,
-		// biome-ignore lint:
 		_failure: Failure | ZodError<any>,
 	): Promise<void> {
 		return;
