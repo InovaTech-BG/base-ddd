@@ -1,11 +1,9 @@
-import { Entity, EntityProps } from "../entities";
-import { Id, UniqueEntityId } from "../entities/value-objects";
+import { Entity, ExtractId } from "../entities";
+import { Id } from "../entities/value-objects";
 import { Repository } from "./repository";
 
-export abstract class InMemoryRepository<
-	T extends Entity<EntityProps, K>,
-	K extends Id<unknown> = UniqueEntityId,
-> implements Repository<T, K>
+export abstract class InMemoryRepository<T extends Entity<any, Id<unknown>>>
+	implements Repository<T>
 {
 	public items: T[] = [];
 
@@ -33,7 +31,7 @@ export abstract class InMemoryRepository<
 		return this.items.some((item) => item.equals(entity));
 	}
 
-	async getById(id: K): Promise<T | null> {
+	async getById(id: ExtractId<T>): Promise<T | null> {
 		const entity = this.items.find((item) => item.id.equals(id));
 
 		if (!entity) {

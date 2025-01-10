@@ -1,10 +1,11 @@
 import { Either, EitherAsync } from "@inovatechbg/either";
 import z, { ZodError } from "zod";
+import { Entity } from "../entities";
 import { Repository } from "../repositories";
 import { Service } from "../services/service";
 
 // biome-ignore lint:
-type AllowedDependency = Repository<any> | Service;
+type AllowedDependency = Repository<Entity<any>> | Service;
 type Dependencies<T extends Record<string, AllowedDependency>> = {
 	[K in keyof T]: T[K];
 };
