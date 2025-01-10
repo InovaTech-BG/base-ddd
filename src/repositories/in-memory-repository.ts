@@ -7,16 +7,19 @@ export abstract class InMemoryRepository<T extends Entity<any, Id<unknown>>>
 {
 	public items: T[] = [];
 
-	async create(entity: T): Promise<void> {
+	async create(entity: T): Promise<T> {
 		this.items.push(entity);
+		return entity;
 	}
 
-	async save(entity: T): Promise<void> {
+	async save(entity: T): Promise<T> {
 		const index = this.items.findIndex((item) => item.equals(entity));
 
 		if (index !== -1) {
 			this.items[index] = entity;
 		}
+
+		return entity;
 	}
 
 	async delete(entity: T): Promise<void> {
