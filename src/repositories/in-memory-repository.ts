@@ -31,6 +31,10 @@ export abstract class InMemoryRepository<T extends Entity<any, Id<unknown>>>
 		return this.items.some((item) => item.equals(entity));
 	}
 
+	async existsById(id: ExtractId<T>): Promise<boolean> {
+		return this.items.some((item) => item.id.equals(id));
+	}
+
 	async getById(id: ExtractId<T>): Promise<T | null> {
 		const entity = this.items.find((item) => item.id.equals(id));
 

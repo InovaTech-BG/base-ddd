@@ -6,5 +6,6 @@ export interface Repository<T extends Entity<any, Id<unknown>>> {
 	save(entity: T): Promise<void>;
 	delete(entity: T): Promise<void>;
 	exists(entity: T): Promise<boolean>;
+	existsById(id: ExtractId<T>): Promise<boolean>;
 	getById(id: ExtractId<T>): Promise<T | null>;
 }
